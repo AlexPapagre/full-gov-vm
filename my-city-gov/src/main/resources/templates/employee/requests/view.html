@@ -1,0 +1,87 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>View Request</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h2>View / Update Request</h2>
+
+                <table>
+                    <tr>
+                        <th>ID:</th>
+                        <td th:text="${request.id}"></td>
+                    </tr>
+                    <tr>
+                        <th>Citizen AFM:</th>
+                        <td th:text="${request.citizenAfm}"></td>
+                    </tr>
+                    <tr>
+                        <th>Service:</th>
+                        <td th:text="${request.serviceType.label}"></td>
+                    </tr>
+                    <tr>
+                        <th>Created At:</th>
+                        <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
+                    <tr>
+                        <th>File:</th>
+                        <td>
+                            <span th:if="${request.fileName != null and !#strings.isEmpty(request.fileName)}">
+                                <a
+                                    th:href="@{/requests/file/{fileName}(fileName=${request.fileName})}"
+                                    th:text="${request.originalFileName}"
+                                    target="_blank"
+                                ></a>
+                            </span>
+                            <span th:unless="${request.fileName != null and !#strings.isEmpty(request.fileName)}"
+                                >-</span
+                            >
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Citizen Note:</th>
+                        <td th:text="${request.note != null && !request.note.isEmpty() ? request.note : '-'}"></td>
+                    </tr>
+                    <tr>
+                        <th>Employee Response:</th>
+                        <td
+                            th:text="${request.response != null && !request.response.isEmpty() ? request.response : '-'}"
+                        ></td>
+                    </tr>
+                </table>
+
+                <form th:action="@{/employee/requests/{id}/update(id=${request.id})}" method="post">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status" required>
+                        <option
+                            th:each="status : ${statuses}"
+                            th:value="${status}"
+                            th:text="${status.label}"
+                            th:selected="${status == request.status}"
+                        ></option>
+                    </select>
+                    <br />
+
+                    <label for="response">Add / Update Comment:</label>
+                    <textarea id="response" name="response" placeholder="(Optional)"></textarea>
+                    <br />
+
+                    <div class="menu-buttons">
+                        <button type="submit">Update Request</button>
+                        <a class="button-back-link" th:href="@{/employee/requests}">Back</a>
+                    </div>
+                </form>
+
+                <p th:if="${message}" class="message success" th:text="${message}"></p>
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>

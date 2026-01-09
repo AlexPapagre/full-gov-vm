@@ -1,0 +1,28 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Services</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h2>Available Services</h2>
+
+                <ul>
+                    <li th:each="service : ${services}">
+                        <span th:text="${service.label}"></span>
+                    </li>
+                </ul>
+
+                <div class="menu-buttons">
+                    <a class="button-back-link" th:href="@{/}">Back</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

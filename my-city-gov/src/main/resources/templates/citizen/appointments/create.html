@@ -1,0 +1,42 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Schedule Appointment</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h2>Schedule Appointment</h2>
+
+                <form th:action="@{/citizen/appointments/create}" th:object="${appointment}" method="post">
+                    <label for="serviceType">Service:</label>
+                    <select th:field="*{serviceType}" id="serviceType" required>
+                        <option
+                            th:each="service : ${services}"
+                            th:value="${service}"
+                            th:text="${service.label}"
+                        ></option>
+                    </select>
+                    <br />
+
+                    <label for="dateTime">Date & Time:</label>
+                    <input type="datetime-local" th:field="*{dateTime}" id="dateTime" required />
+                    <br />
+
+                    <div class="menu-buttons">
+                        <button type="submit">Schedule</button>
+                        <a class="button-back-link" th:href="@{/}">Back</a>
+                    </div>
+                </form>
+
+                <p th:if="${message}" class="message success" th:text="${message}"></p>
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>

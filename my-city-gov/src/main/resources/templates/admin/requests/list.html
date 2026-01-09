@@ -1,0 +1,69 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Manage Requests</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container wide">
+                <h2>All Requests</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Citizen AFM</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Change Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="request : ${requests}">
+                            <td th:text="${request.id}"></td>
+                            <td th:text="${request.citizenAfm}"></td>
+                            <td th:text="${request.serviceType.label}"></td>
+                            <td th:text="${request.status.label}"></td>
+                            <td>
+                                <div th:if="${request.status.name() != 'COMPLETED'}">
+                                    <form
+                                        th:action="@{/admin/requests/{id}/update-service(id=${request.id})}"
+                                        method="post"
+                                    >
+                                        <select name="serviceType" required>
+                                            <option
+                                                th:each="service : ${services}"
+                                                th:value="${service}"
+                                                th:selected="${service == request.serviceType}"
+                                                th:text="${service.label}"
+                                            ></option>
+                                        </select>
+                                        <button type="submit">Update</button>
+                                    </form>
+                                </div>
+                                <span
+                                    th:if="${request.status.name() == 'COMPLETED'}"
+                                    style="color: green; font-weight: bold"
+                                >
+                                    Completed
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="menu-buttons">
+                    <a class="button-back-link" th:href="@{/}">Back</a>
+                </div>
+
+                <p th:if="${message}" class="message success" th:text="${message}"></p>
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>

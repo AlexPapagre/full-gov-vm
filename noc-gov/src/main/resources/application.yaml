@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: noc-gov
+
+  datasource:
+    url: jdbc:postgresql://dpg-d5gj7id6ubrc73bek32g-a.frankfurt-postgres.render.com:5432/nocgovdb
+    username: nocgovusr
+    password: vJW1hzMlUf4Ax5B3diSZLkgFNCRfJYp6
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+
+server:
+  address: 0.0.0.0
+  port: 8081
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true

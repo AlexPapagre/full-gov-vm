@@ -1,0 +1,40 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Profile</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <dl>
+                    <dt>AFM:</dt>
+                    <dd th:text="${person.afm}">123456789</dd>
+
+                    <dt>AMKA:</dt>
+                    <dd th:text="${person.amka}">987654321</dd>
+
+                    <dt>First Name:</dt>
+                    <dd th:text="${person.firstName}">John</dd>
+
+                    <dt>Last Name:</dt>
+                    <dd th:text="${person.lastName}">Doe</dd>
+
+                    <dt>Phone:</dt>
+                    <dd th:text="${person.phone}">+30 210 1234567</dd>
+
+                    <dt>Type:</dt>
+                    <dd th:text="${person.type.label}">User</dd>
+                </dl>
+
+                <div class="menu-buttons">
+                    <a class="button-back-link" th:href="@{/}">Back</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Requests</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container wide">
+                <h2>My Requests</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Note</th>
+                            <th>Response</th>
+                            <th>File</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="request : ${requests}">
+                            <td th:text="${request.id}"></td>
+                            <td th:text="${request.serviceType.label}"></td>
+                            <td th:text="${request.status.label}"></td>
+                            <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${request.note != null && !request.note.isEmpty() ? request.note : '-'}"></td>
+                            <td
+                                th:text="${request.response != null && !request.response.isEmpty() ? request.response : '-'}"
+                            ></td>
+                            <td>
+                                <span th:if="${request.fileName != null and !#strings.isEmpty(request.fileName)}">
+                                    <a
+                                        th:href="@{/requests/file/{fileName}(fileName=${request.fileName})}"
+                                        th:text="${request.originalFileName}"
+                                        target="_blank"
+                                    ></a>
+                                </span>
+                                <span th:unless="${request.fileName != null and !#strings.isEmpty(request.fileName)}"
+                                    >-</span
+                                >
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="menu-buttons">
+                    <a class="button-back-link" th:href="@{/}">Back</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h2 th:text="'Welcome, ' + ${person.firstName} + ' ' + ${person.lastName} + '!'"></h2>
+
+                <div class="menu-buttons">
+                    <a class="button-link" th:href="@{/admin/profile}">View Profile</a>
+
+                    <a class="button" th:href="@{/admin/requests}">Manage Requests</a>
+
+                    <a class="button" th:href="@{/admin/appointments}">Manage Appointments</a>
+
+                    <a class="button" th:href="@{/admin/statistics}">View Statistics</a>
+
+                    <a class="button-logout-link" th:href="@{/auth/logout}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

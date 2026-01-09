@@ -1,0 +1,29 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h2>Login</h2>
+
+                <form action="/auth/send-otp" method="post">
+                    <input type="text" name="afm" placeholder="Enter AFM" required autofocus />
+
+                    <div class="menu-buttons">
+                        <button type="submit">Send code</button>
+                    </div>
+                </form>
+
+                <p th:if="${message}" class="message success" th:text="${message}"></p>
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>

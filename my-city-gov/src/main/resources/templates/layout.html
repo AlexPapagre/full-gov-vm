@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8" />
+        <title>MyCityGov</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <div th:replace="~{fragments/header :: header}"></div>
+
+        <main layout:fragment="content"></main>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </body>
+</html>

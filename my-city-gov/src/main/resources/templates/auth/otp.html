@@ -1,0 +1,34 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Verification Code</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h2>Enter Verification Code</h2>
+
+                <p th:if="${phone}">Code sent to: <span th:text="${phone}"></span></p>
+
+                <form action="/auth/verify-otp" method="post">
+                    <input type="hidden" name="afm" th:value="${afm}" />
+                    <input type="hidden" name="phone" th:value="${phone}" />
+
+                    <input type="text" name="otp" placeholder="6-digit code" required autofocus />
+
+                    <div class="menu-buttons">
+                        <button type="submit">Verify</button>
+                        <a class="button-back-link" th:href="@{/}">Back</a>
+                    </div>
+                </form>
+
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>

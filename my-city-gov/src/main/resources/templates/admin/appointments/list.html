@@ -1,0 +1,66 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Manage Appointments</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container wide">
+                <h2>All Appointments</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Citizen AFM</th>
+                            <th>Service</th>
+                            <th>Date & Time</th>
+                            <th>Change Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="appointment : ${appointments}">
+                            <td th:text="${appointment.id}"></td>
+                            <td th:text="${appointment.citizenAfm}"></td>
+                            <td th:text="${appointment.serviceType.label}"></td>
+                            <td th:text="${#temporals.format(appointment.dateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td>
+                                <div th:unless="${appointment.accepted}">
+                                    <form
+                                        th:action="@{/admin/appointments/{id}/update-service(id=${appointment.id})}"
+                                        method="post"
+                                    >
+                                        <select name="serviceType" required>
+                                            <option
+                                                th:each="service : ${services}"
+                                                th:value="${service}"
+                                                th:selected="${service == appointment.serviceType}"
+                                                th:text="${service.label}"
+                                            ></option>
+                                        </select>
+                                        <button type="submit">Update</button>
+                                    </form>
+                                </div>
+                                <span th:if="${appointment.accepted}" style="color: green; font-weight: bold">
+                                    Accepted
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="menu-buttons">
+                    <a class="button-back-link" th:href="@{/}">Back</a>
+                </div>
+
+                <p th:if="${message}" class="message success" th:text="${message}"></p>
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>

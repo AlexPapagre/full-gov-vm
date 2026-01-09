@@ -1,0 +1,51 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Submit Request</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h2>Submit a New Request</h2>
+
+                <form
+                    th:action="@{/citizen/requests/create}"
+                    th:object="${request}"
+                    method="post"
+                    enctype="multipart/form-data"
+                >
+                    <label for="serviceType">Service:</label>
+                    <select th:field="*{serviceType}" id="serviceType" required>
+                        <option
+                            th:each="service : ${services}"
+                            th:value="${service}"
+                            th:text="${service.label}"
+                        ></option>
+                    </select>
+                    <br />
+
+                    <label for="note">Note:</label>
+                    <textarea th:field="*{note}" id="note" placeholder="(Optional)"></textarea>
+                    <br />
+
+                    <label for="file">Upload Document:</label>
+                    <input type="file" name="file" id="file" />
+                    <br />
+
+                    <div class="menu-buttons">
+                        <button type="submit">Submit Request</button>
+                        <a class="button-back-link" th:href="@{/}">Back</a>
+                    </div>
+                </form>
+
+                <p th:if="${message}" class="message success" th:text="${message}"></p>
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>

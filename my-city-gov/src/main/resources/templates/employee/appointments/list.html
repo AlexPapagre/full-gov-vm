@@ -1,0 +1,81 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Appointments</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container wide">
+                <h2>Appointments for My Services</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Service</th>
+                            <th>Date & Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="appointment : ${appointments}">
+                            <td th:text="${appointment.id}"></td>
+                            <td th:text="${appointment.serviceType.label}"></td>
+                            <td th:text="${#temporals.format(appointment.dateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td>
+                                <div th:unless="${appointment.accepted}">
+                                    <form
+                                        th:action="@{/employee/appointments/{id}/update(id=${appointment.id})}"
+                                        method="post"
+                                        style="display: inline-block"
+                                    >
+                                        <input type="datetime-local" name="dateTime" required />
+                                        <button type="submit">Update</button>
+                                    </form>
+
+                                    <form
+                                        th:action="@{/employee/appointments/{id}/accept(id=${appointment.id})}"
+                                        method="post"
+                                        style="display: inline-block"
+                                    >
+                                        <button type="submit">Accept</button>
+                                    </form>
+
+                                    <form
+                                        th:action="@{/employee/appointments/{id}/cancel(id=${appointment.id})}"
+                                        method="post"
+                                        style="display: inline-block"
+                                    >
+                                        <button
+                                            type="submit"
+                                            onclick="
+                                                return confirm('Are you sure you want to cancel this appointment?');
+                                            "
+                                        >
+                                            Cancel
+                                        </button>
+                                    </form>
+                                </div>
+                                <span th:if="${appointment.accepted}" style="color: green; font-weight: bold">
+                                    Accepted
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="menu-buttons">
+                    <a class="button-back-link" th:href="@{/employee}">Back</a>
+                </div>
+
+                <p th:if="${message}" class="message success" th:text="${message}"></p>
+                <p th:if="${error}" class="message error" th:text="${error}"></p>
+            </div>
+        </div>
+    </body>
+</html>
