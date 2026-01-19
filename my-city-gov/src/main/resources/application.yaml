@@ -3,9 +3,9 @@ spring:
     name: my-city-gov
 
   datasource:
-    url: jdbc:postgresql://dpg-d5gj40khg0os73bm3880-a.frankfurt-postgres.render.com:5432/mycitygovdb_g4xk
-    username: mycitygovusr
-    password: IkruZ7mJ83PdLGRz2uQFrthlOyjHwVPO
+    url: jdbc:postgresql://localhost:5432/mycitygovdb
+    username: mycitygovuser
+    password: mycitygovpassword
     driver-class-name: org.postgresql.Driver
 
   jpa:

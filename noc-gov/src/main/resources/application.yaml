@@ -3,9 +3,9 @@ spring:
     name: noc-gov
 
   datasource:
-    url: jdbc:postgresql://dpg-d5gj7id6ubrc73bek32g-a.frankfurt-postgres.render.com:5432/nocgovdb
-    username: nocgovusr
-    password: vJW1hzMlUf4Ax5B3diSZLkgFNCRfJYp6
+    url: jdbc:postgresql://localhost:5433/nocgovdb
+    username: nocgovuser
+    password: nocgovpassword
     driver-class-name: org.postgresql.Driver
 
   jpa:

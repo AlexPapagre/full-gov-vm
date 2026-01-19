@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: mycitygov-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: mycitygovdb
+      POSTGRES_USER: mycitygovuser
+      POSTGRES_PASSWORD: mycitygovpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - mycitygov_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  mycitygov_postgres_data:
