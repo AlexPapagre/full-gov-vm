@@ -8,7 +8,7 @@ docker volume create minio_data 2>/dev/null
 docker run -d \
     --name minio \
     -p 9000:9000 \
-    -p 9001:9001 \
+    -p 127.0.0.1:9001:9001 \
     -v minio_data:/data \
     -e MINIO_ROOT_USER=minioadmin \
     -e MINIO_ROOT_PASSWORD=minioadmin \
